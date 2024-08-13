@@ -1,23 +1,40 @@
-import logo from './logo.svg';
+import {useState} from 'react';
 import './App.css';
+import Box from './component/Box';
 
+const choice = {
+  rock:{
+    name:"Rock",
+    img:"https://i.ibb.co/fGpdQ6F/2.png"
+  },
+  scissor:{
+    name:"Scissor",
+    img:"https://i.ibb.co/KWNqzyq/3.png"
+  },
+  paper:{
+    name:"Paper",
+    img:"https://i.ibb.co/wWqcprD/4.png"
+  }
+}
 function App() {
+
+  const [userSelect,setUserSelect] = useState(null)
+
+  const play = (userChoice) =>{
+    // console.log("선택됨!",userChoice)
+    setUserSelect(choice[userChoice])
+  }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+    <div className='main'>
+      <Box title="You" item={userSelect}/> 
+      <Box title="Computer"/> 
+    </div>
+    <div className='main'>
+      <button onClick={()=>play("scissor")}>가위</button>
+      <button onClick={()=>play("rock")}>바위</button>
+      <button onClick={()=>play("paper")}>보</button>
+    </div>
     </div>
   );
 }
