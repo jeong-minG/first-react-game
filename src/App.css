@@ -1,10 +1,115 @@
-.box{
-  border: 1px solid #000;
-  width: 500px;
+@font-face {
+  font-family: 'Pretendard-Regular';
+  src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+  font-weight: 500;
+  font-style: normal;
 }
 
-.box > img{ 
-  width: 300px;
+body {
+  font-family: 'Pretendard-Regular';
+  margin: 0; 
+  padding: 0;
+  width: 100%; 
+  height: 100%;
+  box-sizing: border-box; 
 }
 
-.main{display: flex; justify-content: center;}
+.main {
+  display: grid; 
+  grid-template-columns: 1fr 100px 1fr; 
+  align-items: center;
+}
+
+/* 박스 스타일 */
+.box {
+  border: 10px solid #ccc;
+  height: 100vh;
+  display: flex; 
+  flex-direction: column; 
+  justify-content: space-around; 
+  align-items: center;
+}
+
+.box > img { 
+  width: 300px;  
+}
+
+/* 버튼 스타일 */
+.buttons {
+  display: grid; 
+  grid-template-rows: repeat(3, 1fr); 
+  height: 100%; 
+  align-content: space-between; 
+}
+
+.buttons button {
+  border: 0; 
+  background: none; font-weight: 700;
+  font-size: 2em;
+}
+
+.buttons button:hover {
+  background-color: #000;color:#fff;
+}
+
+.buttons button:nth-of-type(2) {
+  border-top: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+}
+
+
+
+.WIN {
+  border: 10px solid green;
+  color: green;
+}
+.LOSE {
+  border: 10px solid red;
+  color: red;
+}
+.TIE {
+  border: 10px solid black;
+  color: black;
+}
+
+/* 반응형 스타일 */
+@media (max-width: 768px) {
+  .main {
+    grid-template-columns: 1fr; /* 단일 열로 변경 */
+  }
+
+  .box {
+    height: auto; /* 높이를 자동으로 조정 */
+    padding: 20px; /* 여백 추가 */
+  }
+
+  .box > img {
+    width: 100%; /* 이미지 너비를 100%로 설정 */
+    max-width: 100px; /* 최대 너비 제한 */
+  }
+
+  .buttons {
+    display: grid; 
+    grid: auto/repeat(3, 1fr); 
+    height: 100%; 
+    justify-content: space-between; 
+  }
+
+  .buttons button {
+    font-size: 1.5em; /* 버튼 글자 크기 조정 */
+  }
+
+  .buttons button:nth-of-type(2) {
+    border-top: none;
+    border-bottom: none;
+    border-left: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+  }
+}
+
+@media (max-width: 480px) {
+  .buttons button {
+    font-size: 1.2em; /* 더 작은 화면에서 버튼 글자 크기 추가 조정 */
+  }
+}
+
