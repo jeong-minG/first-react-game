@@ -19,14 +19,18 @@ const choice = {
 function App() {
   const [userSelect, setUserSelect] = useState(null);
   const [computerSelect, setComputerSelect] = useState(null);
-  const [result, setResult] = useState("");
+  const [result, setResult] = useState(""); 
+  const [userScore, setUserScore] = useState(0);
+  const [comScore, setComScore] = useState(0)
 
   const play = (userChoice) => {
     // console.log("선택됨!",userChoice)
     setUserSelect(choice[userChoice]);
     let computerChoice = randomChoice();
     setComputerSelect(computerChoice);
-    setResult(judgement(choice[userChoice], computerChoice));
+    const gameResult = judgement(choice[userChoice], computerChoice);
+    setResult(gameResult);
+   updateScore(gameResult); 
   };
 
   const judgement = (user, computer) => {
@@ -36,6 +40,14 @@ function App() {
     else if (user.name === "Paper") return computer.name === "Rock" ? "WIN" : "LOSE";
   };
 
+  const updateScore = (gameResult) => {
+    if (gameResult === 'WIN') {
+      setUserScore(prevScore => prevScore + 1);
+    } else if (gameResult === 'LOSE') {
+      setComScore(prevScore => prevScore + 1);
+    }
+  };
+
   const randomChoice = () => {
     let itemArray = Object.keys(choice); //객체에 있는 키값만 뽑아서 배열로 만들어주는 함수
     let randomItem = Math.floor(Math.random() * itemArray.length);
@@ -43,13 +55,27 @@ function App() {
     return choice[final];
   };
 
+  const resetBtn = () => {
+    setUserSelect(null);
+    setComputerSelect(null);
+    setResult('');
+    setUserScore(0);
+    setComScore(0);
+  };
+
   return (
     <div>
+      <div className='score'>
+        <span>{userScore}</span>
+        ← SCORE →
+        <span>{comScore}</span>
+        </div>
       <div className="main">
         <Box title="You" item={userSelect} result={result} /> 
-      <div className="buttons">
+      <div className="buttons"> 
+      <button onClick={() => resetBtn()} className='reset-btn'>리셋</button>
         <button onClick={() => play("scissor")}>가위</button>
-        <button onClick={() => play("rock")}>바위</button>
+        <button onClick={() => play("rock")} className='middleBtn'>바위</button>
         <button onClick={() => play("paper")}>보</button>
       </div>
         <Box title="Computer" item={computerSelect}  result={result} />
